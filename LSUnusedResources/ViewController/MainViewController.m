@@ -10,6 +10,9 @@
 #import "ResourceFileSearcher.h"
 #import "ResourceStringSearcher.h"
 #import "StringUtils.h"
+#import "LSTableView.h"
+#import "LSTableMenu.h"
+#import "MBProgressHUD.h"
 
 // Constant strings
 static NSString * const kDefaultResourceSuffixs    = @"imageset;jpg;gif;png";
@@ -17,7 +20,7 @@ static NSString * const kTableColumnImageIcon      = @"ImageIcon";
 static NSString * const kTableColumnImageShortName = @"ImageShortName";
 static NSString * const kTableColumnFileSize       = @"FileSize";
 
-@interface MainViewController () <NSTableViewDelegate, NSTableViewDataSource>{
+@interface MainViewController () <NSTableViewDelegate, NSTableViewDataSource, LSTableMenuDelegate>{
     BOOL _fileSizeDesc;//文件大小按降序排列
 }
 
@@ -45,7 +48,7 @@ static NSString * const kTableColumnFileSize       = @"FileSize";
 @property (weak) IBOutlet NSButton *ignoreSimilarCheckbox;
 
 // Result
-@property (weak) IBOutlet NSTableView *resultsTableView;
+@property (weak) IBOutlet LSTableView *resultsTableView;
 @property (weak) IBOutlet NSProgressIndicator *processIndicator;
 @property (weak) IBOutlet NSTextField *statusLabel;
 
@@ -57,7 +60,8 @@ static NSString * const kTableColumnFileSize       = @"FileSize";
 @property (assign, nonatomic) BOOL isFileDone;
 @property (assign, nonatomic) BOOL isStringDone;
 @property (strong, nonatomic) NSDate *startTime;
-
+// Menu
+@property (nonatomic, strong) LSTableMenu *tableMenu;
 @end
 
 @implementation MainViewController
@@ -72,7 +76,11 @@ static NSString * const kTableColumnFileSize       = @"FileSize";
     // Do any additional setup after loading the view.
     // Setup double click
     self.unusedResults = [NSMutableArray array];
+    self.tableMenu = [[LSTableMenu alloc] initWithTitle:@"Menu"];
+    self.tableMenu.editorDelegate = self;
+    [self.resultsTableView setMenu:self.tableMenu];
     [self.resultsTableView setDoubleAction:@selector(tableViewDoubleClicked)];
+    
     self.resultsTableView.allowsEmptySelection = YES;
     self.resultsTableView.allowsMultipleSelection = YES;
     
@@ -84,6 +92,19 @@ static NSString * const kTableColumnFileSize       = @"FileSize";
     [super setRepresentedObject:representedObject];
 
     // Update the view, if already loaded.
+}
+
+#pragma mark - Private
+- (void)showText:(NSString*)text {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = text;
+        hud.margin = 10.f;
+        hud.yOffset = 150.f;
+        hud.removeFromSuperViewOnHide = NO;
+        [hud hide:YES afterDelay:1];
+    });
 }
 
 #pragma mark - Action
@@ -207,8 +228,37 @@ static NSString * const kTableColumnFileSize       = @"FileSize";
     [self searchUnusedResourcesIfNeeded];
 }
 
-#pragma mark - <NSTableViewDelegate>
+#pragma mark - <LSTableMenuDelegate>
+-(void)menu:(LSTableMenu*)menu didSelectedItemWithTag:(NSInteger)tag {
+    ResourceFileInfo *info = self.unusedResults[self.resultsTableView.selectedRow];
+    if (info == nil) {
+        return;
+    }
+    
+    if (tag == 0) {
+        NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+        [pasteboard clearContents];
+        NSString* filename = [info.path lastPathComponent];
+        NSRange range = [filename rangeOfString:@"@"];
+        if (range.location != NSNotFound) {
+            filename = [filename substringToIndex:range.location];
+        } else {
+            NSString* str = @".imageset";
+            range = [filename rangeOfString:str options:NSBackwardsSearch];
+            if (range.location != NSNotFound) {
+                filename = [filename substringToIndex:range.location];
+            }
+        }
+        BOOL success = [pasteboard writeObjects:@[filename]];
+        if (success) {
+            [self showText:filename];
+        }
+    } else {
+        [[NSWorkspace sharedWorkspace] selectFile:info.path inFileViewerRootedAtPath:@""];        
+    }
+}
 
+#pragma mark - <NSTableViewDelegate>
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return [self.unusedResults count];
 }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		114E8C711CCDC31B00434D1C /* LSFileUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 114E8C701CCDC31B00434D1C /* LSFileUtils.m */; };
+		2AAAA1391EC1B079001C6A84 /* LSTableMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAAA1381EC1B079001C6A84 /* LSTableMenu.m */; };
+		2AAAA13C1EC1B0AE001C6A84 /* LSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAAA13B1EC1B0AE001C6A84 /* LSTableView.m */; };
+		2AAAA15B1EC1C81F001C6A84 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAAA15A1EC1C81F001C6A84 /* MBProgressHUD.m */; };
 		B1313CAC1B942827001CD7CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B1313CAB1B942827001CD7CF /* AppDelegate.m */; };
 		B1313CAE1B942827001CD7CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1313CAD1B942827001CD7CF /* main.m */; };
 		B1313CC21B942828001CD7CF /* LSUnusedResourcesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1313CC11B942828001CD7CF /* LSUnusedResourcesTests.m */; };
@@ -32,6 +35,12 @@
 /* Begin PBXFileReference section */
 		114E8C6F1CCDC31B00434D1C /* LSFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSFileUtils.h; sourceTree = "<group>"; };
 		114E8C701CCDC31B00434D1C /* LSFileUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSFileUtils.m; sourceTree = "<group>"; };
+		2AAAA1371EC1B079001C6A84 /* LSTableMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTableMenu.h; sourceTree = "<group>"; };
+		2AAAA1381EC1B079001C6A84 /* LSTableMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTableMenu.m; sourceTree = "<group>"; };
+		2AAAA13A1EC1B0AE001C6A84 /* LSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSTableView.h; sourceTree = "<group>"; };
+		2AAAA13B1EC1B0AE001C6A84 /* LSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSTableView.m; sourceTree = "<group>"; };
+		2AAAA1591EC1C81F001C6A84 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		2AAAA15A1EC1C81F001C6A84 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		B1313CA51B942827001CD7CF /* LSUnusedResources.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LSUnusedResources.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1313CA91B942827001CD7CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1313CAA1B942827001CD7CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +79,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2AAAA1361EC1B079001C6A84 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				2AAAA13A1EC1B0AE001C6A84 /* LSTableView.h */,
+				2AAAA13B1EC1B0AE001C6A84 /* LSTableView.m */,
+				2AAAA1371EC1B079001C6A84 /* LSTableMenu.h */,
+				2AAAA1381EC1B079001C6A84 /* LSTableMenu.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		2AAAA13F1EC1BB72001C6A84 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				2AAAA1581EC1C81F001C6A84 /* MBProgressHUD */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		2AAAA1581EC1C81F001C6A84 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				2AAAA1591EC1C81F001C6A84 /* MBProgressHUD.h */,
+				2AAAA15A1EC1C81F001C6A84 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		B1313C9C1B942827001CD7CF = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +130,8 @@
 			children = (
 				B1313CAA1B942827001CD7CF /* AppDelegate.h */,
 				B1313CAB1B942827001CD7CF /* AppDelegate.m */,
+				2AAAA13F1EC1BB72001C6A84 /* Lib */,
+				2AAAA1361EC1B079001C6A84 /* UI */,
 				B1313CCB1B943075001CD7CF /* Model */,
 				B1313CD01B943075001CD7CF /* ViewController */,
 				B1313CCC1B943075001CD7CF /* Recourse */,
@@ -212,7 +251,7 @@
 		B1313C9D1B942827001CD7CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = lessfun.com;
 				TargetAttributes = {
 					B1313CA41B942827001CD7CF = {
@@ -270,9 +309,12 @@
 				B1313CAE1B942827001CD7CF /* main.m in Sources */,
 				B1313CAC1B942827001CD7CF /* AppDelegate.m in Sources */,
 				B19D81801B9451320097E947 /* ResourceFileSearcher.m in Sources */,
+				2AAAA13C1EC1B0AE001C6A84 /* LSTableView.m in Sources */,
 				114E8C711CCDC31B00434D1C /* LSFileUtils.m in Sources */,
 				B19D81831B9451550097E947 /* ResourceStringSearcher.m in Sources */,
 				B19D81861B959BDB0097E947 /* StringUtils.m in Sources */,
+				2AAAA15B1EC1C81F001C6A84 /* MBProgressHUD.m in Sources */,
+				2AAAA1391EC1B079001C6A84 /* LSTableMenu.m in Sources */,
 				B1313CD51B943075001CD7CF /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,8 +362,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -364,8 +408,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
