@@ -22,7 +22,8 @@ typedef NS_ENUM(NSUInteger, LSFileType) {
     LSFileTypeXib   = 7,
     LSFileTypePlist = 8,
     LSFileTypeJson  = 9,
-    LSFileTypeIni  = 10
+    LSFileTypeIni,
+    LSFileTypeJs
 };
 
 
@@ -198,7 +199,11 @@ typedef NS_ENUM(NSUInteger, LSFileType) {
             groupIndex = 1;
             break;
         case LSFileTypeHtml:
-            pattern = @"img\\s+src=\"(.+?)\"";//<img src="xx">
+            pattern = @"img\\s+src=[\"\'](.+?)[\"\']";//<img src="xx"> <img src='xx'>
+            groupIndex = 1;
+            break;
+        case LSFileTypeJs:
+            pattern = @"[\"\']src[\"\'],\\s+[\"\'](.+?)[\"\']";// "src", "xx"> 'src', 'xx'>
             groupIndex = 1;
             break;
         case LSFileTypeJson:
@@ -279,6 +284,9 @@ typedef NS_ENUM(NSUInteger, LSFileType) {
     }
     if ([ext isEqualTo:@"json"]) {
         return LSFileTypeJson;
+    }
+    if ([ext isEqualTo:@"js"]) {
+        return LSFileTypeJs;
     }
     if ([ext isEqualTo:@"css"]) {
         return LSFileTypeCSS;
