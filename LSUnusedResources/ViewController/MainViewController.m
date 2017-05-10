@@ -42,8 +42,9 @@ static NSString * const kTableColumnFileSize       = @"FileSize";
 @property (weak) IBOutlet NSButton *cssCheckbox;
 @property (weak) IBOutlet NSButton *plistCheckbox;
 @property (weak) IBOutlet NSButton *xibCheckbox;
-@property (weak) IBOutlet NSButton *sbCheckbox;
 @property (weak) IBOutlet NSButton *jsonCheckbox;
+@property (weak) IBOutlet NSButton *sbCheckbox;
+@property (weak) IBOutlet NSButton *iniCheckbox;
 
 @property (weak) IBOutlet NSButton *ignoreSimilarCheckbox;
 
@@ -101,7 +102,7 @@ static NSString * const kTableColumnFileSize       = @"FileSize";
         hud.mode = MBProgressHUDModeText;
         hud.labelText = text;
         hud.margin = 10.f;
-        hud.yOffset = 150.f;
+        hud.yOffset = 80.f;
         hud.removeFromSuperViewOnHide = NO;
         [hud hide:YES afterDelay:1];
     });
@@ -370,7 +371,9 @@ static NSString * const kTableColumnFileSize       = @"FileSize";
     if ([self.sbCheckbox state]) {
         [suffixs addObject:@"storyboard"];
     }
-    
+    if ([self.iniCheckbox state]) {
+        [suffixs addObject:@"ini"];
+    }
     if (suffixs.count == 0) {
         [suffixs addObject:@"m"];
     }

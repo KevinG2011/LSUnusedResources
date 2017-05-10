@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, LSFileType) {
     LSFileTypeXib   = 7,
     LSFileTypePlist = 8,
     LSFileTypeJson  = 9,
+    LSFileTypeIni  = 10
 };
 
 
@@ -214,6 +215,9 @@ typedef NS_ENUM(NSUInteger, LSFileType) {
             pattern = [NSString stringWithFormat:@"([a-zA-Z0-9_-]+)\\.(%@)", self.resSuffixs.count ? [self.resSuffixs componentsJoinedByString:@"|"] : @"png|gif|jpg|jpeg"]; //*.(png|gif|jpg|jpeg)
             groupIndex = 1;
             break;
+        case LSFileTypeIni:
+            //TODO:
+            break;
         default:
             break;
     }
@@ -279,7 +283,9 @@ typedef NS_ENUM(NSUInteger, LSFileType) {
     if ([ext isEqualTo:@"css"]) {
         return LSFileTypeCSS;
     }
-    
+    if ([ext isEqualTo:@"ini"]) {
+        return LSFileTypeIni;
+    }
     return LSFileTypeNone;
 }
 

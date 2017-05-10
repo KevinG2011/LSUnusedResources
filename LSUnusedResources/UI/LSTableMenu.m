@@ -18,7 +18,7 @@
 {
     self = [super initWithTitle:title];
     if (self) {
-        _itemsTitle = @[@"Copy",@"Show in Finder"];
+        _itemsTitle = @[@"Copy Filename",@"Show in Finder"];
         NSInteger index = 0;
         for (NSString* itemTitle in _itemsTitle) {
             NSMenuItem* item = [self addItemWithTitle:itemTitle action:@selector(onMenuItemSelected:) keyEquivalent:@""];

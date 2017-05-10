@@ -837,7 +837,15 @@
                                     <button misplaced="YES" id="S3o-93-b4F">
                                         <rect key="frame" x="326" y="65" width="60" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title=".swift" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="eMo-a6-OLG">
+                                        <buttonCell key="cell" type="check" title=".swift" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="eMo-a6-OLG">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
+                                    <button misplaced="YES" id="DXV-iK-pT8">
+                                        <rect key="frame" x="402" y="65" width="60" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title=".json" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="OFI-ad-LRu">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -882,10 +890,10 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
-                                    <button misplaced="YES" id="DXV-iK-pT8">
-                                        <rect key="frame" x="402" y="65" width="60" height="18"/>
+                                    <button misplaced="YES" id="Fgh-Vx-1tz">
+                                        <rect key="frame" x="422" y="36" width="120" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title=".json" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="OFI-ad-LRu">
+                                        <buttonCell key="cell" type="check" title=".ini" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="CSB-e5-Cwf">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1046,6 +1054,7 @@
                         <outlet property="headerCheckbox" destination="YpA-SJ-IRd" id="94A-NH-54r"/>
                         <outlet property="htmlCheckbox" destination="Ap8-HE-32k" id="ivY-qq-Mam"/>
                         <outlet property="ignoreSimilarCheckbox" destination="ty7-Lh-GkV" id="FCe-je-vQk"/>
+                        <outlet property="iniCheckbox" destination="Fgh-Vx-1tz" id="WEe-5x-UDn"/>
                         <outlet property="jsonCheckbox" destination="DXV-iK-pT8" id="Vge-f8-Qtl"/>
                         <outlet property="mCheckbox" destination="9Nb-Td-UP4" id="hQT-Zb-axU"/>
                         <outlet property="mmCheckbox" destination="gRh-xT-XgN" id="BJY-YH-Zsq"/>
