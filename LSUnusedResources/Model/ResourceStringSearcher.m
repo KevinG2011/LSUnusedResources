@@ -13,15 +13,15 @@ NSString * const kNotificationResourceStringQueryDone = @"kNotificationResourceS
 
 typedef NS_ENUM(NSUInteger, LSFileType) {
     LSFileTypeNone  = 0,
-    LSFileTypeH     = 1,
-    LSFileTypeObjC  = 2,
-    LSFileTypeC     = 3,
-    LSFileTypeSwift = 4,
-    LSFileTypeHtml  = 5,
-    LSFileTypeCSS   = 6,
-    LSFileTypeXib   = 7,
-    LSFileTypePlist = 8,
-    LSFileTypeJson  = 9,
+    LSFileTypeH,
+    LSFileTypeObjC,
+    LSFileTypeC,
+    LSFileTypeSwift,
+    LSFileTypeHtml,
+    LSFileTypeCSS,
+    LSFileTypeXib,
+    LSFileTypePlist,
+    LSFileTypeJson,
     LSFileTypeIni,
     LSFileTypeJs
 };
@@ -216,12 +216,10 @@ typedef NS_ENUM(NSUInteger, LSFileType) {
             break;
         case LSFileTypeCSS:
         case LSFileTypeH:
+        case LSFileTypeIni:
         case LSFileTypeC:
             pattern = [NSString stringWithFormat:@"([a-zA-Z0-9_-]+)\\.(%@)", self.resSuffixs.count ? [self.resSuffixs componentsJoinedByString:@"|"] : @"png|gif|jpg|jpeg"]; //*.(png|gif|jpg|jpeg)
             groupIndex = 1;
-            break;
-        case LSFileTypeIni:
-            //TODO:
             break;
         default:
             break;
