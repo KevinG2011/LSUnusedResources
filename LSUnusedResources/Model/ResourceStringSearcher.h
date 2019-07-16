@@ -10,6 +10,21 @@
 
 extern NSString * const kNotificationResourceStringQueryDone;
 
+#pragma mark - ResourceStringPattern
+
+@interface ResourceStringPattern : NSObject
+
+@property (strong, nonatomic) NSString *suffix;
+@property (assign, nonatomic) BOOL enable;
+@property (strong, nonatomic) NSString *regex;
+@property (assign, nonatomic) NSInteger groupIndex;
+
+- (id)initWithDictionary:(NSDictionary *)dict;
+
+@end
+
+
+#pragma mark - ResourceStringSearcher
 
 @interface ResourceStringSearcher : NSObject
 
@@ -17,7 +32,8 @@ extern NSString * const kNotificationResourceStringQueryDone;
 
 + (instancetype)sharedObject;
 
-- (void)startWithProjectPath:(NSString *)projectPath excludeFolders:(NSArray *)excludeFolders resourceSuffixs:(NSArray *)resourceSuffixs fileSuffixs:(NSArray *)fileSuffixs;
+- (void)startWithProjectPath:(NSString *)projectPath excludeFolders:(NSArray *)excludeFolders resourceSuffixs:(NSArray *)resourceSuffixs resourcePatterns:(NSArray *)resourcePatterns;
+
 - (void)reset;
 
 - (BOOL)containsResourceName:(NSString *)name;
@@ -30,5 +46,9 @@ extern NSString * const kNotificationResourceStringQueryDone;
  *  @return BOOL
  */
 - (BOOL)containsSimilarResourceName:(NSString *)name;
+
+- (NSArray *)createDefaultResourcePatternsWithResourceSuffixs:(NSArray *)resSuffixs;
+
+- (NSDictionary *)createEmptyResourcePattern;
 
 @end

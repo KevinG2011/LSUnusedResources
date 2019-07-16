@@ -8,15 +8,15 @@
 
 #import "ResourceFileSearcher.h"
 #import "StringUtils.h"
-#import "LSFileUtils.h"
+#import "FileUtils.h"
 
 NSString * const kNotificationResourceFileQueryDone = @"kNotificationResourceFileQueryDone";
 
-static NSString * const kSuffixImageSet    = @"imageset";
-static NSString * const kSuffixLaunchImage = @"launchimage";
-static NSString * const kSuffixAppIcon     = @"appiconset";
-static NSString * const kSuffixBundle      = @"bundle";
-static NSString * const kSuffixPng         = @"png";
+static NSString * const kSuffixImageSet    = @".imageset";
+static NSString * const kSuffixLaunchImage = @".launchimage";
+static NSString * const kSuffixAppIcon     = @".appiconset";
+static NSString * const kSuffixBundle      = @".bundle";
+static NSString * const kSuffixPng         = @".png";
 
 
 @implementation ResourceFileInfo
@@ -26,11 +26,11 @@ static NSString * const kSuffixPng         = @"png";
         return [[NSImage alloc] initByReferencingFile:self.path];
     }
     
-    if ([self.name hasSuffix:kSuffixImageSet]) {
+    if ([[ResourceFileSearcher sharedObject] isImageSetFolder:self.name]) {
         NSError *error = nil;
         NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.path error:&error];
         if (files.count == 0) {
-            return NO;
+            return nil;
         }
         for (NSString *file in files) {
             if ([StringUtils isImageTypeWithName:file]) {
@@ -82,6 +82,27 @@ static NSString * const kSuffixPng         = @"png";
     [self.resNameInfoDict removeAllObjects];
 }
 
+- (BOOL)isImageSetFolder:(NSString *)folder
+{
+    if ([folder hasSuffix:kSuffixImageSet]
+        || [folder hasSuffix:kSuffixAppIcon]
+        || [folder hasSuffix:kSuffixLaunchImage]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)isInImageSetFolder:(NSString *)folder
+{
+    if (![self isImageSetFolder:folder]
+        && ([folder rangeOfString:kSuffixImageSet].location != NSNotFound
+        || [folder rangeOfString:kSuffixAppIcon].location != NSNotFound
+        || [folder rangeOfString:kSuffixLaunchImage].location != NSNotFound)) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - Private
 
 - (void)scanResourceFileWithProjectPath:(NSString *)projectPath excludeFolders:(NSArray *)excludeFolders resourceSuffixs:(NSArray *)resourceSuffixs {
@@ -102,7 +123,7 @@ static NSString * const kSuffixPng         = @"png";
                 ResourceFileInfo *info = [ResourceFileInfo new];
                 info.name = name;
                 info.path = path;
-                info.fileSize = [LSFileUtils fileSizeAtPath:path isDir:&isDir];
+                info.fileSize = [FileUtils fileSizeAtPath:path isDir:&isDir];
                 info.isDir = isDir;
                 tempResNameInfoDict[keyName] = info;
             }
@@ -124,17 +145,11 @@ static NSString * const kSuffixPng         = @"png";
         // list of path<NSString>
         NSArray *pathList = [self searchDirectory:directoryPath excludeFolders:excludeFolders forFiletype:fileType];
         if (pathList.count) {
-            if (![fileType isEqualTo:kSuffixPng]) {
-                [resources addObjectsFromArray:pathList];
-            } else {
-                for (NSString *path in pathList) {
-                    // if the png file is not in xxx/xxx.imageset/; xx/LaunchImage.launchimage; xx/AppIcon.appiconset
-                    if ([path rangeOfString:kSuffixImageSet].location == NSNotFound
-                        && [path rangeOfString:kSuffixBundle].location == NSNotFound
-                        && [path rangeOfString:kSuffixAppIcon].location == NSNotFound
-                        && [path rangeOfString:kSuffixLaunchImage].location == NSNotFound) {
-                        [resources addObject:path];
-                    }
+            for (NSString *path in pathList) {
+                // ignore if the resource file is in xxx/xxx.imageset/; xx/LaunchImage.launchimage; xx/AppIcon.appiconset; xx.bundle/xx
+                if (![self isInImageSetFolder:path]
+                    && [path rangeOfString:kSuffixBundle].location == NSNotFound) {
+                    [resources addObject:path];
                 }
             }
         }
@@ -147,10 +162,8 @@ static NSString * const kSuffixPng         = @"png";
 //            // if the resource file is not in xxx/xxx.imageset/; xx/LaunchImage.launchimage; xx/AppIcon.appiconset
 //            if (![path hasPrefix:kSuffixPng]) {
 //                [resources addObjectsFromArray:pathList];
-//            } else if ([path rangeOfString:kSuffixImageSet].location == NSNotFound
-//                && [path rangeOfString:kSuffixBundle].location == NSNotFound
-//                && [path rangeOfString:kSuffixAppIcon].location == NSNotFound
-//                && [path rangeOfString:kSuffixLaunchImage].location == NSNotFound) {
+//            } else if (![self isImageSetFolder:path]
+//                && [path rangeOfString:kSuffixBundle].location == NSNotFound) {
 //                [resources addObject:path];
 //            }
 //        }
